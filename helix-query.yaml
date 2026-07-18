@@ -6,7 +6,9 @@ indices:
       - '/**'
     exclude:
       - '/**.json'
-    target: /query-index.json
+      - '/nav'
+      - '/footer'
+      - '/fragments/**'
     properties:
       lastModified:
         select: none
@@ -14,3 +16,13 @@ indices:
       robots:
         select: head > meta[name="robots"]
         value: attribute(el, "content")
+      image:
+        select: head > meta[property="og:image"]
+        value: match(attribute(el,"content"),"https:\/\/[^/]+(/.*)")
+      title:
+        select: head > meta[property="og:title"]
+        value: attribute(el,"content")
+      description:
+        select: head > meta[name="description"]
+        value: attribute(el, "content")
+    target: /query-index.json
