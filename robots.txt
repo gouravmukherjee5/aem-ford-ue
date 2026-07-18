@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://main--aem-ford-ue--gouravmukherjee5.aem.live/sitemap.xml
