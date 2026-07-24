@@ -10,19 +10,26 @@ export default async function decorate(block) {
   console.log(navMeta);
    console.log(navPath);
    console.log(fragment);
+   const toolbar = document.createElement('div');
 
-   if (logo) {
-    // Replace the first section's contents with the authored image wrapped with a link to '/'
-    navBrand.innerHTML = `<a href="/" aria-label="Home" title="Home" class="home">${logo.outerHTML}</a>`;
-    // Make sure the logo is not lazy loaded as it's above the fold and can affect page load speed
-    navBrand.querySelector('img').settAttribute('loading', 'eager');
-  }
+   const buttons = [
+    { text: 'Home', icon: '🏠', href: '/' },
+    { text: 'Search', icon: '🔍', href: '/search' },
+    { text: 'Profile', icon: '👤', href: '/profile' },
+    { text: 'Settings', icon: '⚙️', href: '/settings' }
+  ];
 
-  const navSections = nav.querySelector('.nav-sections');
-  if (navSections) {
-    // WKND: Remove Edge Delivery Services button containers and buttons from the nav sections links
-    navSections.querySelectorAll('.button-container, .button').forEach((button) => {
-      button.classList = '';
-    });
+  buttons.forEach((button) => {
+    const link = document.createElement('a');
+    link.href = button.href;
+    link.className = 'toolbar-button';
+    link.innerHTML = `
+      <span class="icon">${button.icon}</span>
+      <span class="label">${button.text}</span>
+    `;
+    toolbar.appendChild(link);
+  });
+
+  block.appendChild(toolbar);
 
 }
